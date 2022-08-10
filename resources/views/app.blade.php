@@ -289,9 +289,12 @@
             </ul>
 
         </div>
+
+        @if(Auth::check())
         <ul class="nav navbar-nav align-items-center ms-auto">
 
             <li class="nav-item dropdown dropdown-user">
+
                 <a
 
                     class="nav-link dropdown-user-link"
@@ -309,7 +312,6 @@
                             <span class="user-status">Admin</span>
                         @elseif(Auth::user()->userType === 4)
                             <span class="user-status">Office</span>
-
                         @endif
                     </div>
                     @if(!empty($currentUser->profile_picture))
@@ -339,6 +341,7 @@
                 </div>
             </li>
         </ul>
+            @endif
     </div>
 </nav>
 
