@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Services\Gallery\Gallery;
 use App\Http\Services\SchoolFees\SchoolFees;
+use App\Http\Services\Schools\School;
 use App\Models\Student;
 use App\Models\Tutors;
 use App\Models\User;
@@ -18,17 +19,18 @@ class SitePagesController extends Controller
 {
     //
 
-    public function networks(): Factory|View|Application
+    public function networks(): \Inertia\Response
     {
 
         $currentStudent = Student::where('user_id', Auth::user()->id)->first();
 
         $data = [
             'currentStudent'=>$currentStudent,
-            'pageTitle' => 'Treble Clef Networks'
+            'pageTitle' => 'Treble Clef Networks',
+            'schools' => (new School())->getAll()
         ];
 
-        return view('networks', $data );
+        return Inertia::render('Networks', $data );
     }
 
     public  function gallery(){

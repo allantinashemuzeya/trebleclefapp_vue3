@@ -243,264 +243,23 @@
     @routes
     @vite('resources/js/app.js')
     @inertiaHead
+
 </head>
-<body class="vertical-layout vertical-menu-modern navbar-floating footer-static" style="background-color: #0e111d"
+<body class="vertical-layout vertical-menu-modern navbar-floating footer-static"
+      style="{{Auth::check() ? 'background-color: #0e111d' : '' }}"
       data-col=""
       data-menu="vertical-menu-modern"
       data-open="click">
 
 
-<!-- BEGIN: Header-->
-<nav
-    class="header-navbar navbar navbar-expand-lg align-items-center floating-nav navbar-dark navbar-shadow container-xxl"
-    style="background-color: #871010">
-    <div class="navbar-container d-flex content">
-        <div class="bookmark-wrapper d-flex align-items-center">
-            <ul class="nav navbar-nav d-xl-none">
-                <li class="nav-item">
-                    <a class="nav-link menu-toggle" href="#"
-                    ><i class="ficon" data-feather="menu"></i
-                        ></a>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav bookmark-icons">
-
-                <li class="nav-item d-none d-lg-block">
-                    <a
-                        class="nav-link"
-                        data-bs-placement="bottom"
-                        data-bs-toggle="tooltip"
-                        href="/chat"
-                        title="Chat"
-                    ><i class="ficon" data-feather="message-square"></i
-                        ></a>
-                </li>
-                <li class="nav-item d-none d-lg-block">
-                    <a
-                        class="nav-link"
-                        data-bs-placement="bottom"
-                        data-bs-toggle="tooltip"
-                        href="/calendar"
-                        title="Calendar"
-                    ><i class="ficon" data-feather="calendar"></i
-                        ></a>
-                </li>
-
-            </ul>
-
-        </div>
-
-        @if(Auth::check())
-        <ul class="nav navbar-nav align-items-center ms-auto">
-
-            <li class="nav-item dropdown dropdown-user">
-
-                <a
-
-                    class="nav-link dropdown-user-link"
-                    data-bs-toggle="dropdown"
-                    href="{{route('profile')}}"
-                    onclick="window.location='/profile'"
-                    id="dropdown-user">
-                    <div class="user-nav d-sm-flex d-none">
-                        <span class="user-name fw-bolder">{{Auth::user()->name}}</span>
-                        @if(Auth::user()->userType === 1)
-                            <span class="user-status">Student</span>
-                        @elseif(Auth::user()->userType === 2)
-                            <span class="user-status">Tutor</span>
-                        @elseif(Auth::user()->userType === 3)
-                            <span class="user-status">Admin</span>
-                        @elseif(Auth::user()->userType === 4)
-                            <span class="user-status">Office</span>
-                        @endif
-                    </div>
-                    @if(!empty($currentUser->profile_picture))
-                        <span class="avatar">
-                            <img
-                                alt="avatar"
-                                class="round"
-                                height="40"
-                                src="{{asset('storage/profilePictures/'.$currentUser->profile_picture)}}"
-                                width="40"/><span class="avatar-status-online"></span></span
-                        ></a>
-                @endif
-
-
-                <div
-                    aria-labelledby="dropdown-user"
-                    class="dropdown-menu dropdown-menu-end">
-                    <a class="dropdown-item" href="page-profile.html"
-                    ><i class="me-50" data-feather="user"></i> Profile</a
-                    ><a class="dropdown-item" href="app-email.html"
-                    ><i class="me-50" data-feather="mail"></i> Inbox</a
-                    ><a class="dropdown-item" href="app-todo.html"
-                    ><i class="me-50" data-feather="check-square"></i> Task</a
-                    ><a class="dropdown-item" href="/chat"
-                    ><i class="me-50" data-feather="message-square"></i> Chats</a
-                    >
-                </div>
-            </li>
-        </ul>
-            @endif
-    </div>
-</nav>
-
-<!-- END: Header-->
-
-<!-- BEGIN: Main Menu-->
-<div class="main-menu menu-fixed menu-dark menu-accordion menu-shadow"
-     data-scroll-to-active="true">
-    <div class="navbar-header">
-        <ul class="nav navbar-nav flex-row">
-            <li class="nav-item me-auto">
-                <a class="navbar-brand" href="/"
-                ><span class="brand-logo">
-
-                            <img src="{{asset('app-assets/images/logo/treble Clef white.jpeg')}}" style="    max-width: 124%;
-        margin-top: -25px;
-        margin-left: -23px;"/>
-                        </span></a>
-
-            </li>
-            <li class="nav-item nav-toggle">
-                <a class="nav-link modern-nav-toggle pe-0" data-bs-toggle="collapse"
-                ><i
-                        class="d-block d-xl-none text-primary toggle-icon font-medium-4"
-                        data-feather="x"
-                    ></i
-                    ><i
-                        class="d-none d-xl-block collapse-toggle-icon font-medium-4 text-primary"
-                        data-feather="disc"
-                        data-ticon="disc"
-                    ></i
-                    ></a>
-            </li>
-        </ul>
-    </div>
-    <div class="shadow-bottom"></div>
-    <div class="main-menu-content">
-        <ul class="navigation navigation-main"
-            data-menu="menu-navigation"
-            id="main-menu-navigation">
-            <li class="nav-item has-sub sidebar-group-active open">
-                <a class="d-flex align-items-center" href="/"
-                ><i data-feather="home"></i
-                    ><span class="menu-title text-truncate" data-i18n="Dashboards"
-                    >Dashboards</span
-                    ><span class="badge badge-light-warning rounded-pill ms-auto me-1"
-                    >2</span
-                    ></a
-                >
-                <ul class="menu-content">
-                    <li class="">
-                        <a
-                            class="d-flex align-items-center" href="/"><i data-feather="circle"></i><span
-                                class="menu-item text-truncate" data-i18n="Analytics"
-                            >Home</span
-                            ></a
-                        >
-                    </li>
-                    <li>
-                        <a
-                            class="d-flex align-items-center"
-                            href="{{route('classroom')}}"
-                        ><i data-feather="circle"></i
-                            ><span class="menu-item text-truncate" data-i18n="eCommerce"
-                            >The Classroom</span
-                            ></a
-                        >
-                    </li>
-
-                </ul>
-            </li>
-            <li class="navigation-header">
-                <span data-i18n="">More</span
-                ><i data-feather="more-horizontal"></i>
-            </li>
-
-            <li class="nav-item">
-                <a class="d-flex align-items-center" href="/events"
-                ><i data-feather="bell"></i
-                    ><span class="menu-title text-truncate" data-i18n="Calendar"
-                    >Events</span
-                    ></a
-                >
-            </li>
-
-            <li class="nav-item">
-                <a class="d-flex align-items-center" href="/calendar"
-                ><i data-feather="calendar"></i
-                    ><span class="menu-title text-truncate" data-i18n="Calendar"
-                    >School Calendar</span
-                    ></a
-                >
-            </li>
-
-            <li class="nav-item">
-                <a class="d-flex align-items-center" href="/foundations"
-                ><i data-feather="heart"></i
-                    ><span class="menu-title text-truncate" data-i18n="Calendar"
-                    >Foundations</span
-                    ></a>
-            </li>
-
-
-            <li class="nav-item">
-                <a class="d-flex align-items-center" href="/office"
-                ><i data-feather="file-text"></i
-                    ><span class="menu-title text-truncate" data-i18n="Calendar"
-                    >Visit Office</span
-                    ></a>
-            </li>
-
-            <li class="nav-item">
-                <a class="d-flex align-items-center" href="/gallery"
-                ><i data-feather="image"></i
-                    ><span class="menu-title text-truncate" data-i18n="Calendar"
-                    >Gallery</span
-                    ></a>
-            </li>
-
-            <li class="nav-item">
-                <a class="d-flex align-items-center" href="/chat"
-                ><i data-feather="message-square"></i
-                    ><span class="menu-title text-truncate" data-i18n="Calendar"
-                    >Chat</span
-                    ></a>
-            </li>
-
-
-            <br/>
-            <br/>
-            <br/>
-            <li class="nav-item">
-                <a class="d-flex align-items-center" href="/logout"
-                ><i data-feather="log-out"></i
-                    ><span class="menu-title text-truncate" data-i18n="Calendar"
-                    >Logout</span
-                    ></a>
-            </li>
-        </ul>
-    </div>
-</div>
-<!-- END: Main Menu-->
-
-<!-- BEGIN: Content-->
-<div class="app-content content">
-    <div class="content-overlay"></div>
-    <div class="header-navbar-shadow"></div>
-    <div class="content-wrapper container-xxl p-0">
-        <div class="content-header row"></div>
-
         @inertia
 
-    </div>
-</div>
 <!-- END: Content-->
 
+
+
 <!-- BEGIN: Page Vendor JS-->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="{{ asset('app-assets/vendors/js/extensions/toastr.min.js') }}"></script>
 <script src="{{ asset('app-assets/vendors/js/extensions/moment.min.js') }}"></script>
 <script src="{{ asset('app-assets/vendors/js/tables/datatable/jquery.dataTables.min.js') }}"></script>
@@ -523,5 +282,25 @@
 <script src="{{ asset('app-assets/js/scripts/pages/dashboard-analytics.min.js') }}"></script>
 <script src="{{ asset('app-assets/js/scripts/pages/app-invoice-list.min.js') }}"></script>
 <!-- END: Page JS-->
+
+@if(!Auth::check())
+    <!-- BEGIN: Vendor JS-->
+    <script src="{{asset('app-assets/vendors/js/vendors.min.js')}}"></script>
+    <!-- BEGIN Vendor JS-->
+
+    <!-- BEGIN: Page Vendor JS-->
+    <script src="{{asset('app-assets/vendors/js/forms/validation/jquery.validate.min.js')}}"></script>
+    <!-- END: Page Vendor JS-->
+
+    <!-- BEGIN: Theme JS-->
+    <script src="{{asset('app-assets/js/core/app-menu.min.js')}}"></script>
+    <script src="{{asset('app-assets/js/core/app.min.js')}}"></script>
+    <!-- END: Theme JS-->
+
+    <!-- BEGIN: Page JS-->
+    <script src="{{asset('app-assets/js/scripts/pages/page-auth-login.js')}}"></script>
+    <!-- END: Page JS-->
+
+@endif
 </body>
 </html>
