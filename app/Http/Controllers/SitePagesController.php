@@ -7,14 +7,19 @@ use App\Http\Services\SchoolFees\SchoolFees;
 use App\Models\Student;
 use App\Models\Tutors;
 use App\Models\User;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class SitePagesController extends Controller
 {
     //
 
-    public function networks(){
+    public function networks(): Factory|View|Application
+    {
 
         $currentStudent = Student::where('user_id', Auth::user()->id)->first();
 
@@ -51,7 +56,7 @@ class SitePagesController extends Controller
             $tutors_[] = User::where('id', $tutor->userId)->first();
         }
 
-        return view('office',  [ 'pageTitle' => '','currentUser'=>$currentUser,'tutors'=>$tutors_]);
+        return Inertia::render('Office',  [ 'pageTitle' => '','currentUser'=>$currentUser,'tutors'=>$tutors_]);
     }
 
     public function chat()

@@ -44,10 +44,6 @@ Route::get('/batsi', function (){
     return Inertia::render('Batsi');
 });
 
-
-
-
-
 Route::controller(HomeController::class)->group(function(){
     Route::get('/dashboard/','index')->middleware(['auth'])->name('dashboard');
 });
@@ -74,9 +70,6 @@ Route::controller(ProfileController::class)->group(function(){
     Route::get('/profile', 'index')->middleware(['auth'])->name('profile');
     Route::post('/profile-update', 'updateProfile')->middleware(['auth'])->name('updateProfile');
 });
-
-
-
 
 
 Route::controller(EventsController::class)->group(function(){
